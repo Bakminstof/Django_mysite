@@ -1,0 +1,24 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Payment
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+
+<div>
+  <form method="get" action="{% url 'shopapp:buy' id=item.id %}">
+    {% csrf_token %}
+    <button type="submit">Pay</button>
+  </form>
+</div>
+
+<div>
+  <a href="{% url 'shopapp:item_list'%}">To list items</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+{{ order.name }}
+{% endblock %}
+
+{% block head %}
+<h2>
+  {{ order.name }}
+</h2>
+{% endblock %}
+
+{% block body %}
+<div>
+  <p>
+    Items:
+  </p>
+</div>
+<div>
+  {% if order.items %}
+  <ul>
+    {% for item in order.items.all %}
+    <li>
+      <a href="{% url 'shopapp:item_detail' id=item.id">{{ item.name }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  No items
+  {% endif %}
+</div>
+<div>
+  <p>
+    Total price: {{ order.total_price_usd }}
+  </p>
+</div>
+<div>
+  <p>
+    Discount: {{ order.discount.value }}
+  </p>
+</div>
+<div>
+  <p>
+    Tax: {{ order.tax.value }}
+  </p>
+</div>
+<div>
+  <a href="{% url 'shopapp:item_list'%}">To list items</a>
+</div>
+
+{% endblock %}

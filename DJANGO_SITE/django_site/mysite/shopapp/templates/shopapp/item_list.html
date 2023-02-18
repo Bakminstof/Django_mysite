@@ -1,0 +1,38 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Item
+{% endblock %}
+
+{% block head %}
+Items
+{% endblock %}
+
+
+{% block body %}
+
+{% if object_list %}
+{% for item in object_list %}
+<h3>
+  <a href="{% url 'shopapp:item_detail' id=item.id %}">{{ item.name }}</a>
+</h3>
+<p>
+  Description: {{ item.description }}
+</p>
+<p>
+  Price: {{ item.price_usd }}
+</p>
+{% endfor %}
+{% else %}
+<h2>
+  Items not found
+</h2>
+{% endif %}
+
+<h3>
+  <a href="{% url 'shopapp:order_create' %}">Create order</a>
+</h3>
+<h3>
+  <a href="{% url 'home' %}">Home</a>
+</h3>
+{% endblock %}

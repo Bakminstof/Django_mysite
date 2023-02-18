@@ -1,0 +1,23 @@
+{% extends 'app_users/registration/base.html' %}
+
+{% block title %}
+Logout
+{% endblock %}
+
+{% block head %}
+<h2>
+  Logout
+</h2>
+{% endblock %}
+
+{% block body %}
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">
+    Logout
+  </button>
+</form>
+{% endblock %}
+
+

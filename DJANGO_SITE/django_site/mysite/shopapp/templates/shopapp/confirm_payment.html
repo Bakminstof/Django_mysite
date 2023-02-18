@@ -1,0 +1,71 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Confirmation
+{% endblock %}
+
+{% block head %}
+<h2>
+  {{ object.name }}
+</h2>
+{% endblock %}
+
+{% block body %}
+<h3>
+  Confirm payment
+</h3>
+
+{% if type == 'item' %}
+<p>
+  Name: {{ object.name }}
+</p>
+<p>
+  Description: {{ object.description }}
+</p>
+<p>
+  Price: {{ object.price_usd }}
+</p>
+
+{% elif type == 'order' %}
+<p>
+  Name: {{ object.name }}
+</p>
+<p>
+  <ul>
+  {% for item in object.items.all %}
+  <li>
+    <a href="{% url 'shopapp:item_detail' id=item.id %}">{{ item.name }}</a> : <i>{{ item.price_usd }}</i>
+  </li>
+  {% endfor %}
+</ul>
+</p>
+<p>
+  Start price: {{ object.total_price_usd }}
+</p>
+{% if discount != 0 %}
+<p>
+  Discount: {{ discount }}  {{ object.discount.value }}%
+</p>
+{% endif %}
+{% if tax != 0 %}
+<p>
+  Tax: {{ tax }} {{ object.tax.value }}%
+</p>
+{% endif %}
+<p>
+  Final price: {{ total_amount }}
+</p>
+{% endif %}
+
+<div>
+  <form method="post" action="{% url 'shopapp:confirm_payment' type=type id=id %}">
+    {% csrf_token %}
+    <button type="submit">Buy</button>
+  </form>
+</div>
+
+<div>
+  <a href="{% url 'shopapp:item_list'%}">To list items</a>
+</div>
+
+{% endblock %}

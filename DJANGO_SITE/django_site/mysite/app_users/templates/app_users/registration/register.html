@@ -1,0 +1,24 @@
+{% extends 'app_users/registration/base.html' %}
+
+{% block title %}
+Registration
+{% endblock %}
+
+{% block head %}
+<h2>
+  Registration
+</h2>
+{% endblock %}
+
+{% block body %}
+{% if error %}
+<b id="error-register">{{ error }}</b>
+{% endif %}
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">
+    Register
+  </button>
+</form>
+{% endblock %}

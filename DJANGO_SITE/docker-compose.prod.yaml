@@ -1,0 +1,58 @@
+version: '3.3'
+
+services:
+  web_app:
+    container_name: django_mysite
+    env_file:
+      - django_site/mysite.prod.env
+    build:
+      context: ./django_site
+      dockerfile: Dockerfile
+    volumes:
+      - static_volume:/usr/src/mysite/staticfiles
+    ports:
+      - "9999"
+    depends_on:
+      - postgres_django
+    networks:
+      - net
+
+  postgres_django:
+    container_name: postgres_mysite
+    env_file:
+      - ./postgresql/pg.env
+    build:
+      context: ./postgresql
+      dockerfile: Dockerfile
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - '4343'
+    command:
+      - 'postgres'
+      - '-c'
+      - 'config_file=/var/lib/PostgresConfig/postgresql.conf'
+    networks:
+      - net
+
+  nginx_proxy:
+    container_name: nginx_proxy_mysite
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      - static_volume:/usr/src/mysite/staticfiles
+    ports:
+      - "2500:80"
+    networks:
+      - net
+    depends_on:
+      - postgres_django
+
+networks:
+  net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  static_volume:

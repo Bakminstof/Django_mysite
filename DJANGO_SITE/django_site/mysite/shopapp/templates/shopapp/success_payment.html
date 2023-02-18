@@ -1,0 +1,14 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Thanks for your order!
+{% endblock %}
+
+{% block body %}
+<h1>Thanks for your order!</h1>
+
+<div>
+  <a href="{% url 'shopapp:item_list'%}">To list items</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Item
+{% endblock %}
+
+{% block head %}
+<h2>
+  {{ item.name }}
+</h2>
+{% endblock %}
+
+{% block body %}
+<p>
+  Description: {{ item.description }}
+</p>
+<p>
+  Price: {{ item.price_usd }}
+</p>
+<div>
+  <form method="get" action="{% url 'shopapp:item_buy' id=item.id%}">
+    {% csrf_token %}
+    <button type="submit">Buy</button>
+  </form>
+</div>
+
+<div>
+  <a href="{% url 'shopapp:item_list'%}">To list items</a>
+</div>
+
+{% endblock %}

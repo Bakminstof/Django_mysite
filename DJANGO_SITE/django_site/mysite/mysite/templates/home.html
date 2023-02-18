@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+</head>
+<body>
+
+<h1>
+  Main page
+</h1>
+
+{% if request.user.is_authenticated %}
+<h3>
+  Wellcome, <b>{% firstof request.user.first_name request.user.username %}</b>!
+</h3>
+
+<div>
+  <a href="{% url 'app_users:account' %}">My account</a>
+</div>
+<div>
+  <a href="{% url 'shopapp:item_list' %}">Items</a>
+</div>
+<div>
+  <a href="{% url 'app_users:logout' %}">Logout</a>
+</div>
+
+{% else %}
+<h3>
+  Not authenticated
+</h3>
+<div>
+  <a href="{% url 'shopapp:item_list' %}">Items</a>
+</div>
+<div>
+  <a href="{% url 'app_users:login' %}">Login</a>
+</div>
+<div>
+  <a href="{% url 'app_users:register' %}">Registration</a>
+</div>
+
+{% endif %}
+</body>
+</html>

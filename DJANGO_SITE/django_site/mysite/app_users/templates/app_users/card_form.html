@@ -1,0 +1,34 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Add card
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+{% if card %}
+<div>
+  <p>
+    Card already exist: ***{{ card.last4 }}
+  </p>
+</div>
+{% else %}
+<div>
+  <form method="post" >
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    {% if next_page %}
+    <input type="hidden" name="next_page" value="{{ next_page }}">
+    {% endif %}
+
+    <button type="submit">Create card</button>
+  </form>
+</div>
+{% endif %}
+<div>
+  <a href="{% url 'app_users:account'%}">To account</a>
+</div>
+{% endblock %}
