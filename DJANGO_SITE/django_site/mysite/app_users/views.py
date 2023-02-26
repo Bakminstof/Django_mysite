@@ -106,6 +106,16 @@ class CardView(LoginRequiredMixin, View):
 
             else:
                 return redirect(reverse('app_users:account'))
+        else:
+            template_name = 'app_users/card_form.html'
+
+            context = {
+                'form': form,
+                'card': None,
+                'next_page': request.GET.get('next')
+            }
+
+            return render(request, template_name, context)
 
     def patch(self):  # TODO update card
         return redirect(reverse('app_users:account'))
