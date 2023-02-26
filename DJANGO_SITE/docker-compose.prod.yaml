@@ -3,6 +3,7 @@ version: '3.3'
 services:
   web_app:
     container_name: django_mysite
+    restart: always
     env_file:
       - django_site/mysite.prod.env
     build:
@@ -19,6 +20,7 @@ services:
 
   postgres_django:
     container_name: postgres_mysite
+    restart: always
     env_file:
       - ./postgresql/pg.env
     build:
@@ -37,6 +39,7 @@ services:
 
   nginx_proxy:
     container_name: nginx_proxy_mysite
+    restart: always
     build:
       context: ./nginx
       dockerfile: Dockerfile
